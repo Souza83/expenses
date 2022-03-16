@@ -17,6 +17,8 @@ class MyHomePage extends StatelessWidget {
         title: Text('Despesas Pessoais'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround, //Espaço entre objetos
+        crossAxisAlignment: CrossAxisAlignment.stretch, //Estica os objetos
         children: <Widget>[
           Container(
             width: double.infinity, //Recebe a largura da total da tela
