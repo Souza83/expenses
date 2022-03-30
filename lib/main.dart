@@ -2,8 +2,8 @@ import 'package:expenses/components/transaction_form.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:math';
-import 'components/transaction_form.dart';
-import 'components/transaction_list.dart';
+import './components/transaction_form.dart';
+import './components/transaction_list.dart';
 import 'models/transaction.dart';
 
 main() => runApp(ExpensivesApp());
@@ -11,11 +11,32 @@ main() => runApp(ExpensivesApp());
 class ExpensivesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeData tema = ThemeData();
+
     return MaterialApp(
       home: MyHomePage(),
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-        accentColor: Colors.amber,
+      theme: tema.copyWith(
+        colorScheme: tema.colorScheme.copyWith(
+          primary: Colors.purple,
+          secondary: Colors.amber,
+        ),
+        textTheme: tema.textTheme.copyWith(
+          headline6: TextStyle(
+            fontFamily: 'OpenSans',
+            //fontFamily: 'Quicksand',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            //fontFamily: 'Quicksand',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
