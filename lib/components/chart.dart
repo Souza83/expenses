@@ -25,9 +25,7 @@ class Chart extends StatelessWidget {
         }
       }
 
-      print(
-        DateFormat.E().format(weekdDay)[0],
-      );
+      print(DateFormat.E().format(weekdDay)[0]);
       print(totalSum);
 
       return {
@@ -39,6 +37,7 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    groupedTransactions;
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
