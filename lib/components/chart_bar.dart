@@ -16,8 +16,11 @@ class ChartBar extends StatelessWidget {
     return Column(
       children: [
         // Diminui o valor do texto para caber na caixa
-        FittedBox(
-          child: Text('${value.toStringAsFixed(2)}'),
+        Container(
+          height: 20,
+          child: FittedBox(
+            child: Text('${value.toStringAsFixed(2)}'),
+          ),
         ),
         SizedBox(height: 5),
         Container(
