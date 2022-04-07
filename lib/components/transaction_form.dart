@@ -85,7 +85,7 @@ class _TransactionFormState extends State<TransactionForm> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    onPressed: _showDatePicker(),
+                    onPressed: _showDatePicker,
                   )
                 ],
               ),
