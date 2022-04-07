@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
   //Cria Função
-  final void Function(String, double) onSubmit;
+  final void Function(String, double, DateTime) onSubmit;
 
   //Cria Construtor
   TransactionForm(this.onSubmit);
@@ -21,11 +21,11 @@ class _TransactionFormState extends State<TransactionForm> {
     final title = _titleController.text;
     final value = double.tryParse(_valueController.text) ?? 0.0;
 
-    if (title.isEmpty || value <= 0) {
+    if (title.isEmpty || value <= 0 || _selectedDate == null) {
       //Se título em branco ou valor menor igual 0
       return;
     }
-    widget.onSubmit(title, value);
+    widget.onSubmit(title, value, _selectedDate);
   }
 
   //Cria Função privada para exibir calendário p/ selecionar data
