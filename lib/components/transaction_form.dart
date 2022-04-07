@@ -1,22 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class TransactionForm extends StatelessWidget {
-  final titleController = TextEditingController();
-  final valueController = TextEditingController();
-
+class TransactionForm extends StatefulWidget {
   //Cria Função
   final void Function(String, double) onSubmit;
 
   //Cria Construtor
   TransactionForm(this.onSubmit);
+
+  @override
+  _TransactionFormState createState() => _TransactionFormState();
+}
+
+class _TransactionFormState extends State<TransactionForm> {
+  final _titleController = TextEditingController();
+  final _valueController = TextEditingController();
+  DateTime _selectedDate = DateTime.now();
+
   _submitForm() {
-    final title = titleController.text;
-    final value = double.tryParse(valueController.text) ?? 0.0;
+    final title = _titleController.text;
+    final value = double.tryParse(_valueController.text) ?? 0.0;
+
     if (title.isEmpty || value <= 0) {
       //Se título em branco ou valor menor igual 0
       return;
     }
-    onSubmit(title, value);
+    widget.onSubmit(title, value);
+  }
+
+  //Cria Função privada para exibir calendário p/ selecionar data
+  _showDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2021),
+      lastDate: DateTime.now(),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    });
   }
 
   @override
@@ -28,7 +54,7 @@ class TransactionForm extends StatelessWidget {
         child: Column(
           children: <Widget>[
             TextField(
-              controller: titleController,
+              controller: _titleController,
               //Função "enter" do teclado. (_) ignora valor da função
               onSubmitted: (_) => _submitForm(),
               decoration: InputDecoration(
@@ -36,7 +62,7 @@ class TransactionForm extends StatelessWidget {
               ),
             ),
             TextField(
-              controller: valueController,
+              controller: _valueController,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               onSubmitted: (_) => _submitForm(),
               decoration: InputDecoration(
@@ -47,7 +73,11 @@ class TransactionForm extends StatelessWidget {
               height: 70,
               child: Row(
                 children: [
-                  Text('Nenhuma data selecionada!'),
+                  Expanded(
+                    child: Text(_selectedDate == null
+                        ? 'Nenhuma data selecionada!'
+                        : 'Data Selecionada: ${DateFormat('dd/MM/y').format(_selectedDate)}'),
+                  ),
                   TextButton(
                     child: Text(
                       'Selecionar Data',
@@ -55,7 +85,7 @@ class TransactionForm extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: _showDatePicker(),
                   )
                 ],
               ),
