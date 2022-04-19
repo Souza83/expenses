@@ -108,10 +108,14 @@ class _MyHomePageState extends State<MyHomePage> {
     final mediaQuery = MediaQuery.of(context);
     bool isLandscape = mediaQuery.orientation == Orientation.landscape;
 
+    final iconList = Platform.isIOS ? CupertinoIcons.refresh : Icons.list;
+    final chartList =
+        Platform.isIOS ? CupertinoIcons.refresh : Icons.show_chart;
+
     final actions = <Widget>[
       if (isLandscape)
         _getIconButton(
-          _showChart ? Icons.list : Icons.show_chart,
+          _showChart ? iconList : chartList,
           () {
             setState(() {
               _showChart = !_showChart;
@@ -133,11 +137,13 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar.preferredSize.height -
         mediaQuery.padding.top;
 
-    final bodyPage = SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch, //Estica os objetos
-        children: <Widget>[
-          /*if (isLandscape)
+    //SafeArea garante que componentes fique em area segura, ignora 'not' em IOS
+    final bodyPage = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch, //Estica os objetos
+          children: <Widget>[
+            /*if (isLandscape)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -154,17 +160,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),*/
-          if (_showChart || !isLandscape)
-            Container(
-              height: availableHeight * (isLandscape ? 0.8 : 0.3),
-              child: Chart(_recentTransactions),
-            ),
-          if (!_showChart || !isLandscape)
-            Container(
-              height: availableHeight * (isLandscape ? 1 : 0.7),
-              child: TransactionList(_transactions, _removeTransaction),
-            ),
-        ],
+            if (_showChart || !isLandscape)
+              Container(
+                height: availableHeight * (isLandscape ? 0.8 : 0.3),
+                child: Chart(_recentTransactions),
+              ),
+            if (!_showChart || !isLandscape)
+              Container(
+                height: availableHeight * (isLandscape ? 1 : 0.7),
+                child: TransactionList(_transactions, _removeTransaction),
+              ),
+          ],
+        ),
       ),
     );
 
