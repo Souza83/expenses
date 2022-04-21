@@ -44,15 +44,5 @@ class TransactionList extends StatelessWidget {
               );
             },
           );
-
-    /*ListView(
-            children: transactions.map((tr) {
-              return TransactionItem(
-                key: ValueKey(tr.id),
-                tr: tr,
-                onRemove: onRemove,
-              );
-            }).toList(),
-          );*/
   }
 }

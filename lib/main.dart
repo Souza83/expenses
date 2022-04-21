@@ -1,4 +1,3 @@
-//import 'dart:html';
 import 'dart:math';
 import 'dart:io';
 
@@ -143,23 +142,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch, //Estica os objetos
           children: <Widget>[
-            /*if (isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Exibir Gráfico'),
-                  //Adapta conforme sistema operacional
-                  Switch.adaptive(
-                    activeColor: Theme.of(context).accentColor,
-                    value: _showChart,
-                    onChanged: (value) {
-                      setState(() {
-                        _showChart = value;
-                      });
-                    },
-                  ),
-                ],
-              ),*/
             if (_showChart || !isLandscape)
               Container(
                 height: availableHeight * (isLandscape ? 0.8 : 0.3),
